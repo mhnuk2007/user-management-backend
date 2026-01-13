@@ -1,5 +1,6 @@
 package com.learning.usermanagementbackend.service;
 
+import com.learning.usermanagementbackend.dto.UserRequest;
 import com.learning.usermanagementbackend.dto.UserResponse;
 import com.learning.usermanagementbackend.entity.User;
 import com.learning.usermanagementbackend.mapper.UserMapper;
@@ -23,5 +24,11 @@ public class UserService {
                 .map(userMapper::mapToResponse)
                 .toList();
 
+    }
+
+    public UserResponse createUser(UserRequest request) {
+        User user = userMapper.mapToUser(request);
+        User savedUser = userRepository.save(user);
+        return userMapper.mapToResponse(savedUser);
     }
 }
